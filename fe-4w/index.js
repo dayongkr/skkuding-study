@@ -346,8 +346,10 @@ const dummyData = {
   total_results: 746457,
 };
 
-// <div class="card-wrapper"><a href="movie.html"><img src="src/movie.jpeg" alt="영화"></a></div>
+// load dummy data in a local storage.
+window.localStorage.setItem("data", JSON.stringify(dummyData));
 
+// create poster elements and append it.
 const wrapper = document.getElementById("sub-wrapper");
 
 dummyData.results.forEach((item) => {

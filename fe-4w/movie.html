@@ -9,18 +9,19 @@
   <link rel="stylesheet" href="styles/index.css">
   <link rel="stylesheet" href="styles/movie.css">
   <script src="common.js" async></script>
+  <script src="movie.js" async></script>
   <title>Black Panther: Wakanda Forever</title>
 </head>
 
 <body>
   <div id="main-wrapper">
     <main>
-      <h1>Black Panther: Wakanda Forever</h1>
+      <h1 id="title">Title</h1>
       <div class="flex wrapper">
-        <div id="card-wrapper"><img src="src/movie.jpeg" alt="영화표지"></div>
+        <div id="card-wrapper"><img src="" alt="영화표지"></div>
         <div class="wrapper">
-          <p>📅 2022-06-30</p>
-          <p>⭐ 7.1</p>
+          <p id="date">📅 </p>
+          <p id="rate">⭐ </p>
           <ul>
             <li>Darma</li>
             <li>Hero</li>
@@ -29,15 +30,10 @@
       </div>
       <div class="wrapper">
         <h2>📖 Overview</h2>
-        <p>T'Challa, king of Wakanda, is dying from an unspecified terminal illness which his sister Shuri believes
-          can
-          be
-          cured by the "heart-shaped herb". Shuri attempts to synthetically recreate the herb after it was destroyed
-          by
-          Erik Killmonger,[a] but fails to do so before T'Challa dies.</p>
+        <p id="overview""></p>
       </div>
-      <div class="wrapper">
-        <button id="backButton" type="button">Go Back</button>
+      <div class=" wrapper">
+          <button id="backButton" type="button">Go Back</button>
       </div>
     </main>
   </div>
