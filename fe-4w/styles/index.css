@@ -49,3 +49,9 @@ main {
   transform: scale(105%);
   cursor:pointer
 }
+
+@media screen and (max-width: 520px) {
+  #sub-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
