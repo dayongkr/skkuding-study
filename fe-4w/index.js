@@ -351,32 +351,73 @@ window.localStorage.setItem("data", JSON.stringify(dummyData));
 
 // create poster elements and append it.
 const wrapper = document.getElementById("sub-wrapper");
+const renderAll = () => {
+  dummyData.results.forEach((item) => {
+    const div = document.createElement("div");
+    const a = document.createElement("a");
+    const img = document.createElement("img");
 
-dummyData.results.forEach((item) => {
-  const div = document.createElement("div");
-  const a = document.createElement("a");
-  const img = document.createElement("img");
+    div.className = "card-wrapper";
+    a.href = `movie.html?id=${item.id}`;
+    img.src = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
+    img.alt = `item.title`;
+    div.appendChild(a);
+    a.appendChild(img);
 
-  div.className = "card-wrapper";
-  a.href = `movie.html?id=${item.id}`;
-  img.src = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
-  img.alt = `item.title`;
-  div.appendChild(a);
-  a.appendChild(img);
+    wrapper.appendChild(div);
+  });
+};
 
-  wrapper.appendChild(div);
-});
+const render = (datas) => {
+  datas.forEach((item) => {
+    const div = document.createElement("div");
+    const a = document.createElement("a");
+    const img = document.createElement("img");
+
+    div.className = "card-wrapper";
+    a.href = `movie.html?id=${item.id}`;
+    img.src = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
+    img.alt = `item.title`;
+    div.appendChild(a);
+    a.appendChild(img);
+
+    wrapper.appendChild(div);
+  });
+};
+
+const removeAll = () => {
+  [...wrapper.children].forEach((e) => {
+    wrapper.removeChild(e);
+  });
+};
+
+renderAll();
 
 const searchButton = document.getElementById("search_button");
 const searchBackButton = document.getElementById("search-back-button");
-const title = document.getElementById("title-wrapper");
-const search = document.getElementById("search-wrapper");
+const titleWrapper = document.getElementById("title-wrapper");
+const searchWrapper = document.getElementById("search-wrapper");
+const searchInput = document.getElementById("search_input");
 
 searchButton.addEventListener("click", () => {
-  title.classList.add("hide");
-  search.classList.remove("hide");
+  titleWrapper.classList.add("hide");
+  searchWrapper.classList.remove("hide");
 });
 searchBackButton.addEventListener("click", () => {
-  title.classList.remove("hide");
-  search.classList.add("hide");
+  titleWrapper.classList.remove("hide");
+  searchWrapper.classList.add("hide");
+});
+
+searchInput.addEventListener("keyup", (e) => {
+  if (e.target.value == "") {
+    removeAll();
+    renderAll();
+  } else {
+    removeAll();
+    render(
+      dummyData.results.filter((item) =>
+        item.title.toLowerCase().includes(e.target.value)
+      )
+    );
+  }
 });
