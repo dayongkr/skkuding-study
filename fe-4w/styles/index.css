@@ -12,7 +12,7 @@ header {
   z-index: 999;
 }
 
-nav {
+h1#title {
   display: flex;
   max-width: 520px;
   width: 100%;
@@ -29,13 +29,39 @@ main {
   padding: 10px;
 }
 
+input#search_input {
+  background-color: transparent;
+  width: 100%;
+}
+
 
 #sub-wrapper {
+  display: flex;
+  align-items: center;
   padding: 20px 0;
   display: grid;
   grid-template-columns: repeat(2,minmax(0,1fr));
   gap: 25px;
   max-width: 520px;
+}
+
+#title-wrapper{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 520px;
+}
+
+#search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px;
+  background-color: #eee;
+  width: 100%;
+  height: 100%;
+  max-width: 520px;
+  padding: 10px;
 }
 
 .card-wrapper{
@@ -54,4 +80,8 @@ main {
   #sub-wrapper {
     grid-template-columns: 1fr;
   }
+}
+
+.hide{
+  display: none !important;
 }

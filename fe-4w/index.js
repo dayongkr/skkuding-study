@@ -366,3 +366,17 @@ dummyData.results.forEach((item) => {
 
   wrapper.appendChild(div);
 });
+
+const searchButton = document.getElementById("search_button");
+const searchBackButton = document.getElementById("search-back-button");
+const title = document.getElementById("title-wrapper");
+const search = document.getElementById("search-wrapper");
+
+searchButton.addEventListener("click", () => {
+  title.classList.add("hide");
+  search.classList.remove("hide");
+});
+searchBackButton.addEventListener("click", () => {
+  title.classList.remove("hide");
+  search.classList.add("hide");
+});
