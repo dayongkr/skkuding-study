@@ -351,25 +351,9 @@ window.localStorage.setItem("data", JSON.stringify(dummyData));
 
 // create poster elements and append it.
 const wrapper = document.getElementById("sub-wrapper");
-const renderAll = () => {
-  dummyData.results.forEach((item) => {
-    const div = document.createElement("div");
-    const a = document.createElement("a");
-    const img = document.createElement("img");
 
-    div.className = "card-wrapper";
-    a.href = `movie.html?id=${item.id}`;
-    img.src = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
-    img.alt = `item.title`;
-    div.appendChild(a);
-    a.appendChild(img);
-
-    wrapper.appendChild(div);
-  });
-};
-
-const render = (datas) => {
-  datas.forEach((item) => {
+const render = (data) => {
+  data.forEach((item) => {
     const div = document.createElement("div");
     const a = document.createElement("a");
     const img = document.createElement("img");
@@ -391,7 +375,7 @@ const removeAll = () => {
   });
 };
 
-renderAll();
+render(dummyData.results);
 
 const searchButton = document.getElementById("search_button");
 const searchBackButton = document.getElementById("search-back-button");
@@ -411,12 +395,12 @@ searchBackButton.addEventListener("click", () => {
 searchInput.addEventListener("keyup", (e) => {
   if (e.target.value == "") {
     removeAll();
-    renderAll();
+    render(dummyData.results);
   } else {
     removeAll();
     render(
       dummyData.results.filter((item) =>
-        item.title.toLowerCase().includes(e.target.value)
+        item.title.toLowerCase().includes(e.target.value.toLowerCase())
       )
     );
   }
