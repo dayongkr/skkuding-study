@@ -14,6 +14,7 @@ interface movieData {
   vote_average:number,
   vote_count: number,
 }
+
 interface dummyDataInterface {
   page: number;
   results: Array<movieData>;
