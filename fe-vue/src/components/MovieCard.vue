@@ -1,7 +1,7 @@
 <template>
   <div class="card-wrapper">
-    <a href=""
-      ><img
+    <a :href="'movie/' + props.movie.id">
+      <img
         :src="'https://image.tmdb.org/t/p/w500/' + props.movie.poster_path"
         :alt="props.movie.title"
     /></a>

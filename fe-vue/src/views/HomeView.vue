@@ -29,7 +29,6 @@ export default {
           return movie.title.toLowerCase().includes(newValue.value.toLowerCase())
         })
       }
-      console.log(movies.results)
     })
     return { moviesR, searchValue }
   }
