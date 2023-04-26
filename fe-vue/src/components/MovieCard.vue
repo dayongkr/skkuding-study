@@ -3,7 +3,7 @@
     <a href=""
       ><img
         :src="'https://image.tmdb.org/t/p/w500/' + props.movie.poster_path"
-        :alt="props.movie.original_title"
+        :alt="props.movie.title"
     /></a>
   </div>
 </template>

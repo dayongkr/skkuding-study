@@ -1,17 +1,17 @@
 <template>
-  <HomeHeader></HomeHeader>
+  <HomeHeader :searchValue="searchValue"></HomeHeader>
   <main>
     <div id="sub-wrapper">
-      <MovieCard v-for="movie in movies" :key="movie.id" :movie="movie" />
+      <MovieCard v-for="movie in moviesR.results" :key="movie.id" :movie="movie" />
     </div>
   </main>
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { reactive, watch } from 'vue'
 import HomeHeader from '@/components/HomeHeader.vue'
 import MovieCard from '@/components/MovieCard.vue'
-import { results } from '@/data/movies.json'
+import movies from '@/data/movies.json'
 
 export default {
   components: {
@@ -19,8 +19,19 @@ export default {
     MovieCard
   },
   setup() {
-    const movies = reactive(results)
-    return { movies }
+    const moviesR = reactive(JSON.parse(JSON.stringify(movies))) // deep copy
+    const searchValue = reactive({ value: '' })
+    watch(searchValue, (newValue) => {
+      if (newValue.value === '') {
+        moviesR.results = movies.results
+      } else {
+        moviesR.results = movies.results.filter((movie) => {
+          return movie.title.toLowerCase().includes(newValue.value.toLowerCase())
+        })
+      }
+      console.log(movies.results)
+    })
+    return { moviesR, searchValue }
   }
 }
 </script>

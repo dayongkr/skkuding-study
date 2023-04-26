@@ -21,7 +21,7 @@
         </svg>
       </button>
       <input
-        v-model="searchValue"
+        v-model="props.searchValue.value"
         type="text"
         name="search"
         id="search_input"
@@ -35,10 +35,12 @@
 import { ref } from 'vue'
 
 export default {
-  setup() {
+  props: {
+    searchValue: Object
+  },
+  setup(props) {
     const show = ref(false)
-    const searchValue = ref('')
-    return { show, searchValue }
+    return { show, props }
   }
 }
 </script>
