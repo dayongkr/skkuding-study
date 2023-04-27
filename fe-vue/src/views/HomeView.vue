@@ -2,13 +2,13 @@
   <HomeHeader :searchValue="searchValue"></HomeHeader>
   <main>
     <div id="sub-wrapper">
-      <MovieCard v-for="movie in moviesR.results" :key="movie.id" :movie="movie" />
+      <MovieCard v-for="movie in moviesF" :key="movie.id" :movie="movie" />
     </div>
   </main>
 </template>
 
 <script>
-import { reactive, watch } from 'vue'
+import { computed, ref } from 'vue'
 import HomeHeader from '@/components/HomeHeader.vue'
 import MovieCard from '@/components/MovieCard.vue'
 import movies from '@/data/movies.json'
@@ -19,18 +19,15 @@ export default {
     MovieCard
   },
   setup() {
-    const moviesR = reactive(JSON.parse(JSON.stringify(movies))) // deep copy
-    const searchValue = reactive({ value: '' })
-    watch(searchValue, (newValue) => {
-      if (newValue.value === '') {
-        moviesR.results = movies.results
-      } else {
-        moviesR.results = movies.results.filter((movie) => {
-          return movie.title.toLowerCase().includes(newValue.value.toLowerCase())
-        })
-      }
+    const moviesR = ref(movies)
+    const searchValue = ref({ value: '' })
+    const moviesF = computed(() => {
+      if (searchValue.value.value === '') return moviesR.value.results
+      return moviesR.value.results.filter((movie) => {
+        return movie.title.toLowerCase().includes(searchValue.value.value.toLowerCase())
+      })
     })
-    return { moviesR, searchValue }
+    return { moviesR, searchValue, moviesF }
   }
 }
 </script>

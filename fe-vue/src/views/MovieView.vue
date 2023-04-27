@@ -27,13 +27,13 @@
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import movies from '@/data/movies.json'
 export default {
   setup() {
     const route = useRoute() // setup에서는 this.$route 대신 useRoute()를 사용
-    const movie = reactive(
+    const movie = ref(
       movies.results.find((movie) => {
         return movie.id === Number(route.params.id)
       })
