@@ -11,7 +11,7 @@
 import { computed, ref } from 'vue'
 import HomeHeader from '@/components/HomeHeader.vue'
 import MovieCard from '@/components/MovieCard.vue'
-import movies from '@/data/movies.json'
+import axios from 'axios'
 
 export default {
   components: {
@@ -19,13 +19,25 @@ export default {
     MovieCard
   },
   setup() {
-    const moviesR = ref(movies)
+    const instance = axios.create({
+      baseURL: `https://api.themoviedb.org/3/movie/popular?language=en-US&page=1&api_key=${
+        import.meta.env.VITE_API_KEY
+      }`,
+      headers: {
+        accept: 'application/json'
+      }
+    })
+    const moviesR = ref([])
     const searchValue = ref({ value: '' })
     const moviesF = computed(() => {
       if (searchValue.value.value === '') return moviesR.value.results
       return moviesR.value.results.filter((movie) => {
         return movie.title.toLowerCase().includes(searchValue.value.value.toLowerCase())
       })
+    })
+
+    instance.get().then((response) => {
+      moviesR.value = response.data
     })
     return { moviesR, searchValue, moviesF }
   }

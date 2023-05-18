@@ -1,14 +1,14 @@
 <template>
-  <div id="main-wrapper">
+  <div v-show="movie" id="main-wrapper">
     <main>
-      <h1 id="title">{{ movie.title }}</h1>
+      <h1 id="title">{{ movie?.title }}</h1>
       <div class="flex wrapper">
         <div id="card-wrapper">
-          <img :src="'https://image.tmdb.org/t/p/w500/' + movie.poster_path" :alt="movie.title" />
+          <img :src="'https://image.tmdb.org/t/p/w500/' + movie?.poster_path" :alt="movie?.title" />
         </div>
         <div class="wrapper">
-          <p id="date">📅 {{ movie.release_date }}</p>
-          <p id="rate">⭐ {{ movie.vote_average }}</p>
+          <p id="date">📅 {{ movie?.release_date }}</p>
+          <p id="rate">⭐ {{ movie?.vote_average }}</p>
           <ul>
             <li>Darma</li>
             <li>Hero</li>
@@ -17,7 +17,7 @@
       </div>
       <div class="wrapper">
         <h2>📖 Overview</h2>
-        <p id="overview">{{ movie.overview }}</p>
+        <p id="overview">{{ movie?.overview }}</p>
       </div>
       <div class="wrapper">
         <button @click="goBack" id="backButton" type="button">Go Back</button>
@@ -29,15 +29,23 @@
 <script>
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import movies from '@/data/movies.json'
+import axios from 'axios'
+
 export default {
   setup() {
     const route = useRoute() // setup에서는 this.$route 대신 useRoute()를 사용
-    const movie = ref(
-      movies.results.find((movie) => {
-        return movie.id === Number(route.params.id)
-      })
-    )
+    const movie = ref()
+    const instance = axios.create({
+      baseURL: `https://api.themoviedb.org/3/movie/${
+        route.params.id
+      }?language=en-US&page=1&api_key=${import.meta.env.VITE_API_KEY}`,
+      headers: {
+        accept: 'application/json'
+      }
+    })
+    instance.get().then((response) => {
+      movie.value = response.data
+    })
     const goBack = () => {
       window.history.back()
     }
