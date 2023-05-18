@@ -26,31 +26,26 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
 
-export default {
-  setup() {
-    const route = useRoute() // setup에서는 this.$route 대신 useRoute()를 사용
-    const movie = ref()
-    const instance = axios.create({
-      baseURL: `https://api.themoviedb.org/3/movie/${
-        route.params.id
-      }?language=en-US&page=1&api_key=${import.meta.env.VITE_API_KEY}`,
-      headers: {
-        accept: 'application/json'
-      }
-    })
-    instance.get().then((response) => {
-      movie.value = response.data
-    })
-    const goBack = () => {
-      window.history.back()
-    }
-    return { movie, goBack }
+const route = useRoute() // setup에서는 this.$route 대신 useRoute()를 사용
+const movie = ref()
+const instance = axios.create({
+  baseURL: `https://api.themoviedb.org/3/movie/${route.params.id}?language=en-US&page=1&api_key=${
+    import.meta.env.VITE_API_KEY
+  }`,
+  headers: {
+    accept: 'application/json'
   }
+})
+instance.get().then((response) => {
+  movie.value = response.data
+})
+const goBack = () => {
+  window.history.back()
 }
 </script>
 
